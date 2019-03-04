@@ -5,6 +5,9 @@
  */
 package pl.wat.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
@@ -22,6 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Hall.findAll", query = "SELECT h FROM Hall h")
     , @NamedQuery(name = "Hall.findByIdHall", query = "SELECT h FROM Hall h WHERE h.idHall = :idHall")
     , @NamedQuery(name = "Hall.findByNameHall", query = "SELECT h FROM Hall h WHERE h.nameHall = :nameHall")})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Hall implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,6 +38,7 @@ public class Hall implements Serializable {
     private String nameHall;
     @OneToMany(mappedBy = "idHall")
     private Collection<Seat> seatCollection;
+    @JsonIgnore
     @OneToMany(mappedBy = "idHall")
     private Collection<Screening> screeningCollection;
 

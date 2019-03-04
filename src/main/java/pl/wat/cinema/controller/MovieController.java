@@ -10,6 +10,7 @@ import pl.wat.cinema.service.MovieService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class MovieController {
 
@@ -26,6 +27,12 @@ public class MovieController {
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.GET)
     public ResponseEntity<Movie> getMovie(@PathVariable Integer id){
         return ResponseEntity.ok(movieService.getMovie(id));
+    }
+
+    @RequestMapping(value = "/movies/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteMovie(@PathVariable Integer id){
+        movieService.deleteMovie(id);
+        return ResponseEntity.ok().header("Access-Control-Allow-Origin : *").build();
     }
 
     @RequestMapping(value = "/movies", method = RequestMethod.POST)

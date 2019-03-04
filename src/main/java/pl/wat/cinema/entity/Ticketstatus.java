@@ -5,6 +5,8 @@
  */
 package pl.wat.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
@@ -33,6 +35,7 @@ public class Ticketstatus implements Serializable {
     @Basic(optional = false)
     @Column(name = "nameTicketStatus")
     private String nameTicketStatus;
+    @JsonIgnore
     @OneToMany(mappedBy = "idTicketStatus")
     private Collection<Ticket> ticketCollection;
 

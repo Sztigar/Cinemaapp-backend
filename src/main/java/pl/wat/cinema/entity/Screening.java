@@ -5,6 +5,9 @@
  */
 package pl.wat.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -24,6 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Screening.findByIdScreening", query = "SELECT s FROM Screening s WHERE s.idScreening = :idScreening")
     , @NamedQuery(name = "Screening.findByDate", query = "SELECT s FROM Screening s WHERE s.date = :date")
     , @NamedQuery(name = "Screening.findByStatus", query = "SELECT s FROM Screening s WHERE s.status = :status")})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Screening implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,6 +49,7 @@ public class Screening implements Serializable {
     @ManyToOne
     private Movie idMovie;
     @OneToMany(mappedBy = "idScreening")
+    @JsonIgnore
     private Collection<Ticket> ticketCollection;
 
     public Screening() {

@@ -5,6 +5,7 @@
  */
 package pl.wat.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
@@ -64,10 +65,11 @@ public class Person implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date birthday;
     @OneToMany(mappedBy = "login")
+    @JsonIgnore
     private Collection<Ticket> ticketCollection;
-
     @JoinColumn(name = "idPersonType", referencedColumnName = "idPersonType")
     @ManyToOne
+    @JsonIgnore
     private Persontype idPersonType;
 
     public Person() {

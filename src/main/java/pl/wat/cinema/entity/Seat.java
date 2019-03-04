@@ -5,6 +5,8 @@
  */
 package pl.wat.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
@@ -38,8 +40,10 @@ public class Seat implements Serializable {
     @Column(name = "place")
     private int place;
     @JoinColumn(name = "idHall", referencedColumnName = "idHall")
+    @JsonIgnore
     @ManyToOne
     private Hall idHall;
+    @JsonIgnore
     @OneToMany(mappedBy = "idSeat")
     private Collection<Ticket> ticketCollection;
 

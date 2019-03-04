@@ -5,11 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.wat.cinema.entity.Person;
 import pl.wat.cinema.entity.Screening;
-import pl.wat.cinema.service.PersonService;
+import pl.wat.cinema.entity.Seat;
 import pl.wat.cinema.service.ScreeningService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class ScreeningController {
 
@@ -42,4 +43,6 @@ public class ScreeningController {
         screeningService.updateScreening(screening);
         return ResponseEntity.ok().build();
     }
+
+
 }

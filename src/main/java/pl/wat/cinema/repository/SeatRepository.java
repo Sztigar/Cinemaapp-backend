@@ -1,4 +1,9 @@
 package pl.wat.cinema.repository;
 
-public class SeatRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import pl.wat.cinema.entity.Seat;
+
+@Repository
+public interface SeatRepository extends JpaRepository<Seat, Integer> {
 }

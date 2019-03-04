@@ -5,6 +5,8 @@
  */
 package pl.wat.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.*;
@@ -42,6 +44,7 @@ public class Movie implements Serializable {
     private String genre;
     @Column(name = "length")
     private Integer length;
+    @JsonIgnore
     @OneToMany(mappedBy = "idMovie")
     private Collection<Screening> screeningCollection;
 

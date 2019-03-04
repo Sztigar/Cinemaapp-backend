@@ -9,7 +9,7 @@ import pl.wat.cinema.service.PersonService;
 
 import java.util.List;
 
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class PersonController {
 
@@ -32,6 +32,12 @@ public class PersonController {
         return ResponseEntity.ok(personService.getPerson(login));
     }
 
+    @RequestMapping(value = "/persons/{login}", method = RequestMethod.DELETE)
+    public ResponseEntity<Person> deletePerson(@PathVariable String login) {
+        personService.deletePerson(login);
+        return ResponseEntity.ok().header("Access-Control-Allow-Origin : *").build();
+    }
+
     @RequestMapping(value = "/persons", method = RequestMethod.POST)
     public ResponseEntity addPerson(@RequestBody Person person) {
         personService.addPerson(person);
@@ -44,9 +50,14 @@ public class PersonController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("persons/sign-up")
-    public void signUp(@RequestBody Person person) {
-        personService.signUp(person);
+    @RequestMapping(value = "/persons/sign-up", method = RequestMethod.POST)
+    public ResponseEntity signUp(@RequestBody Person person) {
+        try {
+            personService.signUp(person);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }

@@ -5,6 +5,9 @@
  */
 package pl.wat.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,6 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Ticket.findAll", query = "SELECT t FROM Ticket t")
     , @NamedQuery(name = "Ticket.findByIdTicket", query = "SELECT t FROM Ticket t WHERE t.idTicket = :idTicket")
     , @NamedQuery(name = "Ticket.findByPrice", query = "SELECT t FROM Ticket t WHERE t.price = :price")})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Ticket implements Serializable {
 
     private static final long serialVersionUID = 1L;
