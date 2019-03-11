@@ -54,24 +54,7 @@ public class TicketService {
         ticketRepository.save(ticket);
     }
 
-    public List<SeatsDto> getTakenSeats(Integer id) {
-        List<Ticket> ticketList = this.ticketRepository.findAll();
-        List<Seat> seatList = (List<Seat>) screeningRepository.getOne(id).getIdHall().getSeatCollection();
-        List<SeatsDto> seats = new ArrayList<>();
-        for (Seat s : seatList) {
-            seats.add(new SeatsDto(s.getIdSeat(), s.getPlace(), s.getRow(), false));
-        }
-        for (Ticket t : ticketList) {
-            if (t.getIdScreening().getIdScreening().equals(id)) {
-                Seat temp = t.getIdSeat();
-                seats.add(seatList.indexOf(temp), new SeatsDto(temp.getIdSeat(), temp.getPlace(), temp.getRow(), true));
-                seats.remove(new SeatsDto(temp.getIdSeat(), temp.getPlace(), temp.getRow(), false));
-            }
-        }
-        return seats;
-    }
-
-    public void sendTicketInfo(Integer id) {
+    private void sendTicketInfo(Integer id) {
         StringBuilder emailText = new StringBuilder();
         Ticket ticket = ticketRepository.getOne(id);
         Screening screening = screeningRepository.getOne(ticket.getIdScreening().getIdScreening());

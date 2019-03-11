@@ -3,6 +3,7 @@ package pl.wat.cinema.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.wat.cinema.dto.SeatsDto;
 import pl.wat.cinema.entity.Person;
 import pl.wat.cinema.entity.Screening;
 import pl.wat.cinema.entity.Seat;
@@ -42,6 +43,11 @@ public class ScreeningController {
     public ResponseEntity updateScreening(@RequestBody Screening screening) {
         screeningService.updateScreening(screening);
         return ResponseEntity.ok().build();
+    }
+
+    @RequestMapping(value = "/screenings/{id}/seats", method = RequestMethod.GET)
+    public ResponseEntity<List<SeatsDto>> getTakenSeats(@PathVariable Integer id) {
+        return ResponseEntity.ok(screeningService.getTakenSeats(id));
     }
 
 

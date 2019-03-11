@@ -47,6 +47,7 @@ public class Screening implements Serializable {
     private Hall idHall;
     @JoinColumn(name = "idMovie", referencedColumnName = "idMovie")
     @ManyToOne
+    @JsonIgnore
     private Movie idMovie;
     @OneToMany(mappedBy = "idScreening")
     @JsonIgnore

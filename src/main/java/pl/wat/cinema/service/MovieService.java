@@ -37,7 +37,6 @@ public class MovieService {
     }
 
     public void deleteMovie(Integer id) {
-        ticketRepository.
         movieRepository.deleteById(id);
     }
 }

@@ -32,7 +32,7 @@ public class TicketController {
     @RequestMapping(value = "/tickets/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteTicket(@PathVariable Integer id) {
         ticketService.deleteTicket(id);
-        return ResponseEntity.ok().header("Access-Control-Allow-Origin : *").build();
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(value = "/tickets", method = RequestMethod.POST)
@@ -45,11 +45,6 @@ public class TicketController {
     public ResponseEntity updateTicket(@RequestBody Ticket ticket) {
         ticketService.updateTicket(ticket);
         return ResponseEntity.ok().build();
-    }
-
-    @RequestMapping(value = "/seats/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<SeatsDto>> getTakenSeats(@PathVariable Integer id) {
-        return ResponseEntity.ok(ticketService.getTakenSeats(id));
     }
 
 }

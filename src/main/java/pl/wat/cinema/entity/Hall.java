@@ -36,6 +36,7 @@ public class Hall implements Serializable {
     private Integer idHall;
     @Column(name = "nameHall")
     private String nameHall;
+    @JsonIgnore
     @OneToMany(mappedBy = "idHall")
     private Collection<Seat> seatCollection;
     @JsonIgnore

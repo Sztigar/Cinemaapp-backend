@@ -32,7 +32,7 @@ public class MovieController {
     @RequestMapping(value = "/movies/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteMovie(@PathVariable Integer id){
         movieService.deleteMovie(id);
-        return ResponseEntity.ok().header("Access-Control-Allow-Origin : *").build();
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(value = "/movies", method = RequestMethod.POST)

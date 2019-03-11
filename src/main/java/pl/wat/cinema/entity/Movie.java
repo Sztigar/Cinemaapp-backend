@@ -5,34 +5,34 @@
  */
 package pl.wat.cinema.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
 
 /**
- *
  * @author Wiktor
  */
 @Entity
 @Table(name = "movie")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m")
-    , @NamedQuery(name = "Movie.findByIdMovie", query = "SELECT m FROM Movie m WHERE m.idMovie = :idMovie")
-    , @NamedQuery(name = "Movie.findByTitle", query = "SELECT m FROM Movie m WHERE m.title = :title")
-    , @NamedQuery(name = "Movie.findByDescription", query = "SELECT m FROM Movie m WHERE m.description = :description")
-    , @NamedQuery(name = "Movie.findByGenre", query = "SELECT m FROM Movie m WHERE m.genre = :genre")
-    , @NamedQuery(name = "Movie.findByLength", query = "SELECT m FROM Movie m WHERE m.length = :length")})
+        @NamedQuery(name = "Movie.findAll", query = "SELECT m FROM Movie m")
+        , @NamedQuery(name = "Movie.findByIdMovie", query = "SELECT m FROM Movie m WHERE m.idMovie = :idMovie")
+        , @NamedQuery(name = "Movie.findByTitle", query = "SELECT m FROM Movie m WHERE m.title = :title")
+        , @NamedQuery(name = "Movie.findByDescription", query = "SELECT m FROM Movie m WHERE m.description = :description")
+        , @NamedQuery(name = "Movie.findByGenre", query = "SELECT m FROM Movie m WHERE m.genre = :genre")
+        , @NamedQuery(name = "Movie.findByLength", query = "SELECT m FROM Movie m WHERE m.length = :length")})
 public class Movie implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idMovie")
     private Integer idMovie;
     @Basic(optional = false)
@@ -42,9 +42,10 @@ public class Movie implements Serializable {
     private String description;
     @Column(name = "genre")
     private String genre;
+    @Column(name = "image")
+    private String image;
     @Column(name = "length")
     private Integer length;
-    @JsonIgnore
     @OneToMany(mappedBy = "idMovie")
     private Collection<Screening> screeningCollection;
 
@@ -92,6 +93,16 @@ public class Movie implements Serializable {
         this.genre = genre;
     }
 
+    public String getImage() {
+
+        return image;
+    }
+
+    public void setImage(String image) {
+
+        this.image = image;
+    }
+
     public Integer getLength() {
         return length;
     }
@@ -108,6 +119,7 @@ public class Movie implements Serializable {
     public void setScreeningCollection(Collection<Screening> screeningCollection) {
         this.screeningCollection = screeningCollection;
     }
+
 
     @Override
     public int hashCode() {
@@ -133,5 +145,5 @@ public class Movie implements Serializable {
     public String toString() {
         return "newpackage.Movie[ idMovie=" + idMovie + " ]";
     }
-    
+
 }
