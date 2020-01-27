@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.wat.cinema.entity.Person;
 import pl.wat.cinema.repository.PersonRepository;
+import pl.wat.cinema.security.JWTAuthenticationFilter;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,5 +70,9 @@ public class PersonService {
 
     public void deletePerson(String login) {
         this.personRepository.deleteById(login);
+    }
+
+    public Person getLoggedUser() {
+        return personRepository.getOne(JWTAuthenticationFilter.getLogin());
     }
 }

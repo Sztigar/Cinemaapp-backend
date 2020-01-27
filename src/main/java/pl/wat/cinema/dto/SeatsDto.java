@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @JsonDeserialize(builder = SeatsDto.SeatsDtoBuilder.class)
-public class SeatsDto {
+public class SeatsDto implements Comparable<SeatsDto> {
 
     private Integer idSeat;
     private int row;
@@ -22,11 +22,18 @@ public class SeatsDto {
     }
 
     @Builder
-    public SeatsDto(Integer idSeat,int place,int row, boolean taken) {
+    public SeatsDto(Integer idSeat, int place, int row, boolean taken) {
         this.idSeat = idSeat;
         this.row = row;
         this.place = place;
         this.taken = taken;
     }
+
+
+    @Override
+    public int compareTo(SeatsDto o) {
+        return this.getPlace() - o.getPlace();
+    }
+
 
 }

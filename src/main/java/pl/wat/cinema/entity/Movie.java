@@ -9,9 +9,6 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 
 /**
@@ -42,6 +39,10 @@ public class Movie implements Serializable {
     private String description;
     @Column(name = "genre")
     private String genre;
+    @Column(name = "year")
+    private String year;
+    @Column(name = "country")
+    private String country;
     @Column(name = "image")
     private String image;
     @Column(name = "length")
@@ -93,6 +94,22 @@ public class Movie implements Serializable {
         this.genre = genre;
     }
 
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public String getImage() {
 
         return image;
@@ -135,10 +152,7 @@ public class Movie implements Serializable {
             return false;
         }
         Movie other = (Movie) object;
-        if ((this.idMovie == null && other.idMovie != null) || (this.idMovie != null && !this.idMovie.equals(other.idMovie))) {
-            return false;
-        }
-        return true;
+        return (this.idMovie != null || other.idMovie == null) && (this.idMovie == null || this.idMovie.equals(other.idMovie));
     }
 
     @Override

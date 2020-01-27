@@ -2,15 +2,13 @@ package pl.wat.cinema.service;
 
 import org.springframework.stereotype.Service;
 import pl.wat.cinema.dto.SeatsDto;
-import pl.wat.cinema.dto.TakenSeatsListDto;
 import pl.wat.cinema.entity.Screening;
 import pl.wat.cinema.entity.Seat;
 import pl.wat.cinema.entity.Ticket;
 import pl.wat.cinema.repository.ScreeningRepository;
 import pl.wat.cinema.repository.TicketRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ScreeningService {
@@ -40,32 +38,25 @@ public class ScreeningService {
         screeningRepository.save(screening);
     }
 
-    public List<SeatsDto> getTakenSeats(Integer id) {
+    public Map<Integer, List<SeatsDto>> getTakenSeats(Integer id) {
         List<Ticket> ticketList = this.ticketRepository.findAll();
         List<Seat> seatList = (List<Seat>) screeningRepository.getOne(id).getIdHall().getSeatCollection();
-        List<SeatsDto> seats = new ArrayList<>();
-        List<TakenSeatsListDto> rowsOfSeats = new ArrayList<>();
-        Integer numberOfRows = seatList.get(seatList.size()).getRow();
-
+        Map<Integer, List<SeatsDto>> seatsMap = new HashMap<>();
         for (Seat s : seatList) {
-            seats.add(new SeatsDto(s.getIdSeat(), s.getPlace(), s.getRow(), false));
+            seatsMap.computeIfAbsent(s.getRow(), k -> new ArrayList<>()).add(new SeatsDto(s.getIdSeat(), s.getPlace(), s.getRow(), false));
         }
         for (Ticket t : ticketList) {
             if (t.getIdScreening().getIdScreening().equals(id)) {
-                Seat temp = t.getIdSeat();
-                seats.add(seatList.indexOf(temp), new SeatsDto(temp.getIdSeat(), temp.getPlace(), temp.getRow(), true));
-                seats.remove(new SeatsDto(temp.getIdSeat(), temp.getPlace(), temp.getRow(), false));
+                seatsMap.computeIfPresent(t.getIdSeat().getRow(), (k, val) -> {
+                    Seat temp = t.getIdSeat();
+                    val.add(new SeatsDto(temp.getIdSeat(), temp.getPlace(), temp.getRow(), true));
+                    val.remove(new SeatsDto(temp.getIdSeat(), temp.getPlace(), temp.getRow(), false));
+                    return val;
+                });
             }
         }
-        int i = 1;
-        while(i < numberOfRows){
-            for(int j = 0; j < seatList.size(); j++){
-                List<SeatsDto> seatsInRow 
-            }
-            rowsOfSeats.add(i, )
-        }
+        seatsMap.forEach((integer, seatsDtos) -> Collections.sort(seatsDtos));
+        return seatsMap;
 
-
-        return seats;
     }
 }

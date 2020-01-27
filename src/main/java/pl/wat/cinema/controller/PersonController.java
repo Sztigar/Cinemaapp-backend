@@ -2,7 +2,6 @@ package pl.wat.cinema.controller;
 
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import pl.wat.cinema.entity.Person;
 import pl.wat.cinema.service.PersonService;
@@ -25,6 +24,11 @@ public class PersonController {
     @RequestMapping(value = "/persons", method = RequestMethod.GET)
     public List<Person> getAllPersons() {
         return personService.getAllPersons();
+    }
+
+    @RequestMapping(value = "/person", method = RequestMethod.GET)
+    public Person getLoggedUser() {
+        return personService.getLoggedUser();
     }
 
     @RequestMapping(value = "/persons/{login}", method = RequestMethod.GET)

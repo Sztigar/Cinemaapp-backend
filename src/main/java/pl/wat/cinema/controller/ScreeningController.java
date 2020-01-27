@@ -4,12 +4,11 @@ package pl.wat.cinema.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.wat.cinema.dto.SeatsDto;
-import pl.wat.cinema.entity.Person;
 import pl.wat.cinema.entity.Screening;
-import pl.wat.cinema.entity.Seat;
 import pl.wat.cinema.service.ScreeningService;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -46,7 +45,7 @@ public class ScreeningController {
     }
 
     @RequestMapping(value = "/screenings/{id}/seats", method = RequestMethod.GET)
-    public ResponseEntity<List<SeatsDto>> getTakenSeats(@PathVariable Integer id) {
+    public ResponseEntity<Map<Integer, List<SeatsDto>>> getTakenSeats(@PathVariable Integer id) {
         return ResponseEntity.ok(screeningService.getTakenSeats(id));
     }
 
